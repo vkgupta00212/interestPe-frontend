@@ -1,0 +1,64 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", serif;
+}
+
+img {
+  max-width: 100%;
+  height: auto; 
+}
+
+.App {
+  width: 100%;
+  max-width: 2000px; 
+  margin: 0 auto;
+}
+
+body {
+  max-width: 100%;
+  overflow-x: hidden; 
+  background-color: #f6f6f6; 
+}
+
+
+@media (max-width: 1000px) {
+  .App {
+    max-width: 95vw; 
+  }
+}
+
+@media (max-width: 800px) {
+  .App {
+    max-width: 95vw; 
+  }
+
+  .nav-logo-head {
+    margin-left: 100px; 
+  }
+}
+
+
+@media (max-width: 600px) {
+  
+
+  .App {
+    max-width: 90vw;
+    padding: 0 10px; 
+  }
+}
+
+
+@media (max-width: 400px) {
+  .App {
+    max-width: 100%; 
+    padding: 0 5px; 
+  }
+
+  .nav-logo-head {
+    margin-left: 0; 
+    text-align: center; 
+  }
+}
