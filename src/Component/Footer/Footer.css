@@ -15,10 +15,10 @@
     max-width: 150px;
 }
 .footer-icons {
-    margin-top: 2.5rem;
+    margin-top: 1rem;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around; /* Ensure spacing for wrapped icons */
+   
 }
 .footer-icons svg {
     font-size: clamp(1rem, 1.5vw, 1.5rem); /* Fluid scaling */
@@ -29,6 +29,7 @@
     flex: 1;
     display: flex;
     justify-content: flex-end;
+    margin-top: 1.5rem;
 }
 .footer-section-columns {
     display: flex;

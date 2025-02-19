@@ -1,48 +1,39 @@
 import React from "react";
-import { BsTwitter } from "react-icons/bs";
 import { SiLinkedin } from "react-icons/si";
-import { BsYoutube } from "react-icons/bs";
-import { FaFacebookF } from "react-icons/fa";
-import './Footer.css'
+import { FaInstagram } from "react-icons/fa6";
+import './Footer.css';
 
 const Footer = () => {
   return (
     <div className="footer">
       <div className="footer-sections">
         <div className="footer-section-one">
-            <div className="nav-logo">
-                <p>
-                    interestPe
-                    <li className="logo-tagline">Befikar lending</li>
-                </p>
-            </div>
+          <div className="nav-logo">
+            <p>
+              interestPe
+              <li className="logo-tagline">Befikar lending</li>
+            </p>
+          </div>
 
-            <div className="footer-icons">
-            <BsTwitter />
-            <SiLinkedin />
-            <BsYoutube />
-            <FaFacebookF />
-            </div>
+          <div className="footer-icons">
+            <a href="https://www.instagram.com/interestpe/" target="_blank" rel="noopener noreferrer">
+              <FaInstagram />
+            </a>
+            <a href="https://www.linkedin.com/company/interestpe/?viewAsMember=true" target="_blank" rel="noopener noreferrer">
+              <SiLinkedin />
+            </a>
+          </div>
         </div>
 
         <div className="footer-section-two">
-            <div className="footer-section-columns">
+          <div className="footer-section-columns">
             <span>Qualtiy</span>
             <span>Help</span>
-            <span>Share</span>
-            <span>Carrers</span>
-            <span>Testimonials</span>
-            <span>Work</span>
-            </div>
-            <div className="footer-section-columns">
-            <span>244-5333-7783</span>
-            <span>hello@food.com</span>
-            <span>press@food.com</span>
-            <span>contact@food.com</span>
-            </div>
-          
+            <span>+91 9718765341</span>
+            <span>interestpe01@gmail.com</span>
+          </div>
         </div>
-        </div>  
+      </div>
     </div>
   );
 };
