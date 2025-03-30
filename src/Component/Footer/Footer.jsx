@@ -29,7 +29,6 @@ const Footer = () => {
           <div className="footer-section-columns">
             <span>Qualtiy</span>
             <span>Help</span>
-            <span>+91 9718765341</span>
             <span>interestpe01@gmail.com</span>
           </div>
         </div>
