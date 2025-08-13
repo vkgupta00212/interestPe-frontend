@@ -15,11 +15,11 @@ const Index = () => {
           <HeroSection />
         </section>
         {/* Loan Calculator Section */}
-        <section id="calculator" className="py-16 bg-secondary/30">
+        {/* <section id="calculator" className="py-16 bg-secondary/30">
           <div className="container mx-auto px-4">
             <LoanCalculator />
           </div>
-        </section>
+        </section> */}
 
         {/* Footer */}
         <section className="mb-5">
