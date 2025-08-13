@@ -1,149 +1,209 @@
-import { Button } from "./ui/button.jsx";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { HiOutlineBars3 } from "react-icons/hi2";
 import {
-  Menu,
+  Home,
   Phone,
+  User,
   Calculator,
   FileText,
-  User,
   BookOpen,
 } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Button } from "./ui/button";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const Header = () => {
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+  const navigate = useNavigate();
+
+  const loginClick = () => {
+    navigate("/notfound");
   };
 
-  const navigationItems = [
-    { label: "Home", action: () => scrollToSection("home") },
-    { label: "Calculator", action: () => scrollToSection("calculator") },
-    { label: "Apply", action: () => scrollToSection("apply") },
-    { label: "Track Status", action: () => scrollToSection("status") },
-    { label: "Khatabook", action: () => scrollToSection("khatabook") },
+  const menuOptions = [
+    { text: "Home", icon: <Home className="h-4 w-4" />, path: "/" },
+    {
+      text: "Calculator",
+      icon: <Calculator className="h-4 w-4" />,
+      path: "/loancalculator",
+    },
+    {
+      text: "Apply",
+      icon: <FileText className="h-4 w-4" />,
+      path: "/applicationform",
+    },
+    {
+      text: "Track Status",
+      icon: <User className="h-4 w-4" />,
+      path: "/statustracker",
+    },
+    {
+      text: "Khatabook",
+      icon: <BookOpen className="h-4 w-4" />,
+      path: "/khatabook",
+    },
   ];
 
+  // Animation variants for header
+  const headerVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
+
+  // Animation variants for menu items
+  const menuItemVariants = {
+    hidden: { opacity: 0, x: 20 },
+    visible: (index) => ({
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.4, delay: index * 0.1, ease: "easeOut" },
+    }),
+    exit: (index) => ({
+      opacity: 0,
+      x: 20,
+      transition: { duration: 0.3, delay: index * 0.05, ease: "easeIn" },
+    }),
+  };
+
+  // Animation variants for drawer
+  const drawerVariants = {
+    hidden: { x: "100%", opacity: 0 },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.3, ease: "easeOut" },
+    },
+    exit: {
+      x: "100%",
+      opacity: 0,
+      transition: { duration: 0.3, ease: "easeIn" },
+    },
+  };
+
   return (
-    <header
-      className="sticky top-0 z-50 backdrop-blur border-b"
-      style={{
-        backgroundColor: "hsl(var(--background) / 0.95)",
-        backdropFilter: "blur(8px)",
-        WebkitBackdropFilter: "blur(8px)",
-      }}
+    <motion.header
+      className="w-full bg-blue-200 sticky top-0 z-50 shadow-sm"
+      variants={headerVariants}
+      initial="hidden"
+      animate="visible"
     >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center gap-2">
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{
-                backgroundImage:
-                  "linear-gradient(to bottom right, hsl(var(--primary)), hsl(var(--accent)))",
-              }}
-            >
-              <span className="text-white font-bold text-sm">PE</span>
-            </div>
-            <span className="text-xl font-bold">
-              <span className="text-[hsl(var(--primary))]">Interest</span>
-              <span className="text-[hsl(var(--foreground))]">Pe</span>
+      <div className="max-w-7xl mx-auto flex items-center justify-between py-4 px-4 md:px-6">
+        {/* Logo */}
+        <motion.div
+          variants={menuItemVariants}
+          initial="hidden"
+          animate="visible"
+          custom={0}
+        >
+          <Link to="/" className="flex flex-col leading-tight">
+            <span className="text-3xl font-bold text-blue-900 tracking-tight">
+              interestPe
             </span>
-          </div>
+            <span className="text-sm text-blue-900 font-light">
+              Befikar lending
+            </span>
+          </Link>
+        </motion.div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
-            {navigationItems.map((item) => (
-              <button
-                key={item.label}
-                onClick={item.action}
-                className="text-sm font-medium hover:text-[hsl(var(--primary))] transition-colors"
-                style={{ color: "hsl(var(--muted-foreground))" }}
+        {/* Desktop Links */}
+        <nav className="hidden md:flex items-center space-x-8">
+          {menuOptions.map((item, index) => (
+            <motion.div
+              key={index}
+              variants={menuItemVariants}
+              initial="hidden"
+              animate="visible"
+              custom={index + 1}
+            >
+              <Link
+                to={item.path}
+                className="flex items-center gap-2 text-blue-900 hover:text-blue-700 font-medium text-base transition-colors duration-200"
               >
-                {item.label}
-              </button>
-            ))}
-          </nav>
-
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-3">
-            <Button variant="outline" size="sm" className="gap-2">
-              <Phone className="h-4 w-4" />
-              Support
+                {item.icon}
+                {item.text}
+              </Link>
+            </motion.div>
+          ))}
+          <motion.div
+            variants={menuItemVariants}
+            initial="hidden"
+            animate="visible"
+            custom={menuOptions.length + 1}
+          >
+            <Button
+              onClick={loginClick}
+              variant="outline"
+              className="rounded-full px-6 py-2 text-blue-900 border-blue-400 hover:bg-blue-300 hover:text-blue-900 transition-all duration-200"
+            >
+              Login/SignUp
             </Button>
-            <Button size="sm" className="gap-2">
-              <User className="h-4 w-4" />
-              Login
-            </Button>
-          </div>
+          </motion.div>
+        </nav>
 
-          {/* Mobile Menu */}
+        {/* Mobile Menu */}
+        <div className="md:hidden">
           <Sheet>
-            <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="sm">
-                <Menu className="h-5 w-5" />
-              </Button>
+            <SheetTrigger asChild>
+              <motion.div
+                initial={{ opacity: 0, rotate: 90 }}
+                animate={{ opacity: 1, rotate: 0 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+              >
+                <HiOutlineBars3 className="w-8 h-8 text-blue-900 cursor-pointer" />
+              </motion.div>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[280px]">
-              <div className="flex flex-col gap-6 mt-6">
-                {/* Logo in Drawer */}
-                <div className="flex items-center gap-2">
-                  <div
-                    className="w-6 h-6 rounded flex items-center justify-center"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(to bottom right, hsl(var(--primary)), hsl(var(--accent)))",
-                    }}
-                  >
-                    <span className="text-white font-bold text-xs">PE</span>
-                  </div>
-                  <span className="font-bold">InterestPe</span>
-                </div>
-
-                {/* Navigation */}
-                <nav className="flex flex-col gap-4">
-                  {navigationItems.map((item) => (
-                    <button
-                      key={item.label}
-                      onClick={item.action}
-                      className="flex items-center gap-3 text-left p-2 rounded-lg transition-colors hover:bg-[hsl(var(--secondary)/0.5)]"
+            <AnimatePresence>
+              <SheetContent side="right" className="w-[280px] p-6 bg-white">
+                <motion.div
+                  className="flex flex-col gap-3 mt-6"
+                  variants={drawerVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                >
+                  {menuOptions.map((item, index) => (
+                    <motion.div
+                      key={index}
+                      variants={menuItemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      custom={index}
                     >
-                      {item.label === "Calculator" && (
-                        <Calculator className="h-4 w-4" />
-                      )}
-                      {item.label === "Apply" && (
-                        <FileText className="h-4 w-4" />
-                      )}
-                      {item.label === "Track Status" && (
-                        <User className="h-4 w-4" />
-                      )}
-                      {item.label === "Khatabook" && (
-                        <BookOpen className="h-4 w-4" />
-                      )}
-                      {item.label === "Home" && <span className="w-4 h-4" />}
-                      <span>{item.label}</span>
-                    </button>
+                      <Link
+                        to={item.path}
+                        className="flex items-center gap-3 text-blue-900 hover:bg-blue-100 p-3 rounded-lg transition-all duration-200 transform hover:scale-105"
+                      >
+                        {item.icon}
+                        <span className="font-medium">{item.text}</span>
+                      </Link>
+                    </motion.div>
                   ))}
-                </nav>
-
-                {/* Mobile CTA Buttons */}
-                <div className="flex flex-col gap-3 pt-6 border-t">
-                  <Button variant="outline" className="w-full gap-2">
-                    <Phone className="h-4 w-4" />
-                    Support
-                  </Button>
-                  <Button className="w-full gap-2">
-                    <User className="h-4 w-4" />
-                    Login
-                  </Button>
-                </div>
-              </div>
-            </SheetContent>
+                  <motion.div
+                    variants={menuItemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    custom={menuOptions.length}
+                  >
+                    <Button
+                      onClick={loginClick}
+                      variant="outline"
+                      className="mt-4 rounded-full border-blue-400 text-blue-900 hover:bg-blue-300 hover:text-blue-900 transition-all duration-200 transform hover:scale-105"
+                    >
+                      Login/SignUp
+                    </Button>
+                  </motion.div>
+                </motion.div>
+              </SheetContent>
+            </AnimatePresence>
           </Sheet>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 };

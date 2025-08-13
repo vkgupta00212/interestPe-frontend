@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { Button } from "./ui/button";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
 import {
   Table,
   TableBody,
@@ -123,79 +123,106 @@ export const KhatabookSection = () => {
   const netBalance = totalCredit - totalDebit;
 
   return (
-    <div className="space-y-10 px-4 max-w-5xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-200 px-4 py-10 max-w-5xl mx-auto">
       <Tabs defaultValue="customers" className="w-full">
-        <TabsList className="mb-6 flex justify-center gap-4">
-          <TabsTrigger value="customers">
+        <TabsList className="mb-8 flex justify-center gap-4 bg-blue-50 border border-blue-200 rounded-lg p-2">
+          <TabsTrigger
+            value="customers"
+            className="data-[state=active]:bg-blue-600 data-[state=active]:text-white rounded-md px-4 py-2 transition-all duration-200"
+          >
             <User className="mr-2 h-4 w-4" /> Customers
           </TabsTrigger>
-          <TabsTrigger value="transactions">
+          <TabsTrigger
+            value="transactions"
+            className="data-[state=active]:bg-blue-600 data-[state=active]:text-white rounded-md px-4 py-2 transition-all duration-200"
+          >
             <TrendingUp className="mr-2 h-4 w-4" /> Transactions
           </TabsTrigger>
-          <TabsTrigger value="summary">
+          <TabsTrigger
+            value="summary"
+            className="data-[state=active]:bg-blue-600 data-[state=active]:text-white rounded-md px-4 py-2 transition-all duration-200"
+          >
             <Calculator className="mr-2 h-4 w-4" /> Summary
           </TabsTrigger>
         </TabsList>
 
         {/* Customers */}
         <TabsContent value="customers">
-          <Card className="shadow-md">
-            <CardHeader>
-              <CardTitle>Add New Customer</CardTitle>
+          <Card className="shadow-lg rounded-xl border border-blue-200 bg-white">
+            <CardHeader className="bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-t-xl p-6">
+              <CardTitle className="text-xl font-bold">
+                Add New Customer
+              </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="p-6 space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <Label>Name</Label>
+                  <Label className="text-blue-900 font-semibold">Name</Label>
                   <Input
                     placeholder="Customer name"
                     value={newCustomer.name}
                     onChange={(e) =>
                       setNewCustomer({ ...newCustomer, name: e.target.value })
                     }
+                    className="mt-2 border-blue-300 focus:border-blue-600 focus:ring focus:ring-blue-200 rounded-lg text-blue-900 transition-all duration-200"
                   />
                 </div>
                 <div>
-                  <Label>Phone</Label>
+                  <Label className="text-blue-900 font-semibold">Phone</Label>
                   <Input
                     placeholder="+91..."
                     value={newCustomer.phone}
                     onChange={(e) =>
                       setNewCustomer({ ...newCustomer, phone: e.target.value })
                     }
+                    className="mt-2 border-blue-300 focus:border-blue-600 focus:ring focus:ring-blue-200 rounded-lg text-blue-900 transition-all duration-200"
                   />
                 </div>
               </div>
-              <Button onClick={addCustomer} className="mt-2">
+              <Button
+                onClick={addCustomer}
+                className="mt-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-200"
+              >
                 <Plus className="mr-2 h-4 w-4" />
                 Add Customer
               </Button>
             </CardContent>
           </Card>
 
-          <Card className="mt-8 shadow-sm">
+          <Card className="mt-8 shadow-lg rounded-xl border border-blue-200 bg-white">
             <CardHeader>
-              <CardTitle>Customer List</CardTitle>
+              <CardTitle className="text-xl font-bold text-blue-900">
+                Customer List
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Phone</TableHead>
-                    <TableHead className="text-right">Balance</TableHead>
+                    <TableHead className="text-blue-900">Name</TableHead>
+                    <TableHead className="text-blue-900">Phone</TableHead>
+                    <TableHead className="text-right text-blue-900">
+                      Balance
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {customers.map((c) => (
-                    <TableRow key={c.id}>
-                      <TableCell>{c.name}</TableCell>
-                      <TableCell>{c.phone}</TableCell>
+                    <TableRow
+                      key={c.id}
+                      className="hover:bg-blue-50 transition-all duration-200"
+                    >
+                      <TableCell className="text-blue-900">{c.name}</TableCell>
+                      <TableCell className="text-blue-700">{c.phone}</TableCell>
                       <TableCell className="text-right">
                         <Badge
-                          variant={c.balance >= 0 ? "default" : "destructive"}
+                          className={
+                            c.balance >= 0
+                              ? "bg-blue-100 text-blue-800 border-blue-200"
+                              : "bg-red-100 text-red-800 border-red-200"
+                          }
                         >
-                          ₹{c.balance}
+                          ₹{c.balance.toLocaleString()}
                         </Badge>
                       </TableCell>
                     </TableRow>
@@ -208,14 +235,18 @@ export const KhatabookSection = () => {
 
         {/* Transactions */}
         <TabsContent value="transactions">
-          <Card className="shadow-md">
-            <CardHeader>
-              <CardTitle>Add Transaction</CardTitle>
+          <Card className="shadow-lg rounded-xl border border-blue-200 bg-white">
+            <CardHeader className="bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-t-xl p-6">
+              <CardTitle className="text-xl font-bold">
+                Add Transaction
+              </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="p-6 space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <Label>Customer Name</Label>
+                  <Label className="text-blue-900 font-semibold">
+                    Customer Name
+                  </Label>
                   <Input
                     placeholder="Who is this for?"
                     value={newTransaction.customerName}
@@ -225,10 +256,11 @@ export const KhatabookSection = () => {
                         customerName: e.target.value,
                       })
                     }
+                    className="mt-2 border-blue-300 focus:border-blue-600 focus:ring focus:ring-blue-200 rounded-lg text-blue-900 transition-all duration-200"
                   />
                 </div>
                 <div>
-                  <Label>Amount</Label>
+                  <Label className="text-blue-900 font-semibold">Amount</Label>
                   <Input
                     type="number"
                     placeholder="₹"
@@ -239,12 +271,13 @@ export const KhatabookSection = () => {
                         amount: e.target.value,
                       })
                     }
+                    className="mt-2 border-blue-300 focus:border-blue-600 focus:ring focus:ring-blue-200 rounded-lg text-blue-900 transition-all duration-200"
                   />
                 </div>
                 <div>
-                  <Label>Type</Label>
+                  <Label className="text-blue-900 font-semibold">Type</Label>
                   <select
-                    className="w-full border border-input rounded-md px-3 py-2 text-sm"
+                    className="w-full mt-2 border border-blue-300 focus:border-blue-600 focus:ring focus:ring-blue-200 rounded-lg px-3 py-2 text-blue-900 text-sm transition-all duration-200"
                     value={newTransaction.type}
                     onChange={(e) =>
                       setNewTransaction({
@@ -258,7 +291,9 @@ export const KhatabookSection = () => {
                   </select>
                 </div>
                 <div>
-                  <Label>Description</Label>
+                  <Label className="text-blue-900 font-semibold">
+                    Description
+                  </Label>
                   <Input
                     placeholder="Optional notes"
                     value={newTransaction.description}
@@ -268,47 +303,64 @@ export const KhatabookSection = () => {
                         description: e.target.value,
                       })
                     }
+                    className="mt-2 border-blue-300 focus:border-blue-600 focus:ring focus:ring-blue-200 rounded-lg text-blue-900 transition-all duration-200"
                   />
                 </div>
               </div>
-              <Button onClick={addTransaction} className="mt-2">
+              <Button
+                onClick={addTransaction}
+                className="mt-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-200"
+              >
                 <Plus className="mr-2 h-4 w-4" />
                 Add Transaction
               </Button>
             </CardContent>
           </Card>
 
-          <Card className="mt-8">
+          <Card className="mt-8 shadow-lg rounded-xl border border-blue-200 bg-white">
             <CardHeader>
-              <CardTitle>Transactions List</CardTitle>
+              <CardTitle className="text-xl font-bold text-blue-900">
+                Transactions List
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Customer</TableHead>
-                    <TableHead>Amount</TableHead>
-                    <TableHead>Type</TableHead>
-                    <TableHead>Description</TableHead>
+                    <TableHead className="text-blue-900">Date</TableHead>
+                    <TableHead className="text-blue-900">Customer</TableHead>
+                    <TableHead className="text-blue-900">Amount</TableHead>
+                    <TableHead className="text-blue-900">Type</TableHead>
+                    <TableHead className="text-blue-900">Description</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {transactions.map((t) => (
-                    <TableRow key={t.id}>
-                      <TableCell>{t.date}</TableCell>
-                      <TableCell>{t.customerName}</TableCell>
-                      <TableCell>₹{t.amount}</TableCell>
+                    <TableRow
+                      key={t.id}
+                      className="hover:bg-blue-50 transition-all duration-200"
+                    >
+                      <TableCell className="text-blue-900">{t.date}</TableCell>
+                      <TableCell className="text-blue-900">
+                        {t.customerName}
+                      </TableCell>
+                      <TableCell className="text-blue-900">
+                        ₹{t.amount.toLocaleString()}
+                      </TableCell>
                       <TableCell>
                         <Badge
-                          variant={
-                            t.type === "credit" ? "default" : "destructive"
+                          className={
+                            t.type === "credit"
+                              ? "bg-blue-100 text-blue-800 border-blue-200"
+                              : "bg-red-100 text-red-800 border-red-200"
                           }
                         >
-                          {t.type}
+                          {t.type.charAt(0).toUpperCase() + t.type.slice(1)}
                         </Badge>
                       </TableCell>
-                      <TableCell>{t.description}</TableCell>
+                      <TableCell className="text-blue-700">
+                        {t.description}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -319,29 +371,33 @@ export const KhatabookSection = () => {
 
         {/* Summary */}
         <TabsContent value="summary">
-          <Card className="shadow-sm">
+          <Card className="shadow-lg rounded-xl border border-blue-200 bg-white">
             <CardHeader>
-              <CardTitle>Account Summary</CardTitle>
+              <CardTitle className="text-xl font-bold text-blue-900">
+                Account Summary
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
               <div className="flex justify-between">
-                <span>Total Credit:</span>
-                <span className="text-green-600 font-medium">
-                  ₹{totalCredit}
+                <span className="text-blue-900 font-medium">Total Credit:</span>
+                <span className="text-blue-600 font-semibold">
+                  ₹{totalCredit.toLocaleString()}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span>Total Debit:</span>
-                <span className="text-red-600 font-medium">₹{totalDebit}</span>
+                <span className="text-blue-900 font-medium">Total Debit:</span>
+                <span className="text-red-600 font-semibold">
+                  ₹{totalDebit.toLocaleString()}
+                </span>
               </div>
-              <div className="flex justify-between font-bold text-lg pt-2 border-t">
-                <span>Net Balance:</span>
+              <div className="flex justify-between font-bold text-lg pt-2 border-t border-blue-200">
+                <span className="text-blue-900">Net Balance:</span>
                 <span
                   className={`${
-                    netBalance >= 0 ? "text-green-700" : "text-red-700"
-                  }`}
+                    netBalance >= 0 ? "text-blue-600" : "text-red-600"
+                  } font-semibold`}
                 >
-                  ₹{netBalance}
+                  ₹{netBalance.toLocaleString()}
                 </span>
               </div>
             </CardContent>
