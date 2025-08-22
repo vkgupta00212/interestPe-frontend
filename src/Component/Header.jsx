@@ -101,7 +101,7 @@ export const Header = () => {
         >
           <Link to="/" className="flex flex-col leading-tight">
             <span className="text-3xl font-bold text-blue-900 tracking-tight">
-              interestPe
+              interestpe
             </span>
             <span className="text-sm text-blue-900 font-light">
               Befikar lending
