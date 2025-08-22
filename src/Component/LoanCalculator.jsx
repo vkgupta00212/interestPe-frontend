@@ -8,9 +8,9 @@ import { motion } from "framer-motion";
 
 export const LoanCalculator = () => {
   // keep state as string for inputs
-  const [loanAmount, setLoanAmount] = useState("500000");
-  const [interestRate, setInterestRate] = useState("8.5");
-  const [loanTerm, setLoanTerm] = useState("20");
+  const [loanAmount, setLoanAmount] = useState("0");
+  const [interestRate, setInterestRate] = useState("0");
+  const [loanTerm, setLoanTerm] = useState("0");
 
   const [emi, setEmi] = useState(null);
   const [totalInterest, setTotalInterest] = useState(null);
@@ -95,7 +95,7 @@ export const LoanCalculator = () => {
         <Card className="shadow-xl rounded-xl bg-white border border-blue-200">
           <CardHeader className="bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-t-xl p-6">
             <CardTitle className="flex items-center gap-3 text-2xl font-bold">
-              <Calculator size={24} /> interestPe Loan Calculator
+              <Calculator size={24} /> interestpe Loan Calculator
             </CardTitle>
             <p className="text-sm text-blue-100 mt-1">
               Befikar lending for your financial needs

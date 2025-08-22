@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="flex flex-col items-center items-start">
             <div className="flex flex-col">
               <p className="text-3xl font-bold text-blue-900 tracking-tight">
-                interestPe
+                interestpe
               </p>
               <span className="text-sm text-blue-700 font-light">
                 Befikar lending
@@ -76,7 +76,7 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="mt-8 pt-6 border-t border-blue-300 text-center">
           <p className="text-sm text-blue-700">
-            &copy; 2024 interestPe. All rights reserved.
+            &copy; 2024 interestpe. All rights reserved.
           </p>
         </div>
       </div>

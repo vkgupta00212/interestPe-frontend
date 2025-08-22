@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
@@ -8,6 +9,11 @@ import LoanCalculator from "./LoanCalculator";
 
 export const HeroSection = () => {
   const [showCalculator, setShowCalculator] = useState(false);
+  const navigate = useNavigate();
+
+  const handleapply = () => {
+    navigate("/applicationform");
+  };
 
   // Animation variants for main content
   const containerVariants = {
@@ -120,8 +126,9 @@ export const HeroSection = () => {
               custom={1}
             >
               <Button
+                onClick={() => handleapply()}
                 size="lg"
-                className="h-12 px-8 bg-blue-600 text-white hover:bg-blue-700 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
+                className="h-12 px-8 bg-blue-600 text-white hover:bg-blue-700 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl hover:cursor-pointer"
               >
                 Apply Now
               </Button>
