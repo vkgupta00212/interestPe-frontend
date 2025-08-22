@@ -18,11 +18,11 @@ export const LoanCalculator = () => {
   const [effectiveInterestRate, setEffectiveInterestRate] = useState(null);
 
   const calculateEMI = () => {
-    const principal = Number(loanAmount);
-    const rate = Number(interestRate) / 12 / 100;
-    const n = Number(loanTerm) * 12;
+    const principal = Number(loanAmount); // Loan amount
+    const annualRate = Number(interestRate); // Annual interest rate in %
+    const n = Number(loanTerm); // Time in months
 
-    if (!principal || !rate || !n) {
+    if (!principal || !annualRate || !n) {
       setEmi(null);
       setTotalInterest(null);
       setTotalPayment(null);
@@ -30,12 +30,15 @@ export const LoanCalculator = () => {
       return;
     }
 
+    const rate = annualRate / 12 / 100; // Monthly interest rate
+
+    // EMI formula (reducing balance method)
     const emiCalc =
       (principal * rate * Math.pow(1 + rate, n)) / (Math.pow(1 + rate, n) - 1);
 
-    const totalPay = emiCalc * n;
-    const totalInt = totalPay - principal;
-    const effectiveIntRate = (totalInt / principal / Number(loanTerm)) * 100;
+    const totalPay = emiCalc * n; // Total payment over the loan term
+    const totalInt = totalPay - principal; // Total interest paid
+    const effectiveIntRate = (totalInt / principal / (n / 12)) * 100; // Effective annual rate
 
     setEmi(emiCalc.toFixed(2));
     setTotalInterest(totalInt.toFixed(2));
@@ -154,7 +157,7 @@ export const LoanCalculator = () => {
                   />
                   <Slider
                     min={1}
-                    max={20}
+                    max={36}
                     step={0.1}
                     value={[Number(interestRate) || 0]}
                     onValueChange={(value) => setInterestRate(String(value[0]))}
